@@ -16,7 +16,7 @@ module Ipdb
 
     def initialize(attributes={})
       @ip = attributes[:ip]
-      @output = attributes[:output] || 'xml'
+      @output = (attributes[:output] || :xml).to_sym
       @url = "http://ipinfodb.com/ip_query.php?ip=#{URI.escape(@ip)}&output=#{@output}"
       @xml = Nokogiri::XML.parse(open(@url))
     end
