@@ -7,6 +7,12 @@ require "ipdb"
 require "pp"
 
 
-ip = Ipdb::Lookup.new(:ip => '173.45.230.150', :output => 'xml')
+ip = Ipdb::Query.new(:ip => '173.45.230.150', :output => 'xml')
 
-pp ip
+puts ip.address
+
+# @ips = ['173.45.230.150', '127.0.0.1']
+# 
+# Ipdb::Query.new(@ips, :output => :xml) do |ip|
+#   puts ip.address
+# end

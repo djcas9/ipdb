@@ -1,2 +1,2 @@
-require 'ipdb/lookup'
+require 'ipdb/query'
 require 'ipdb/version'
