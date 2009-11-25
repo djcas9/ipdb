@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'enumerator'
+require 'uri'
 
 module Ipdb
 
@@ -16,7 +17,7 @@ module Ipdb
     def initialize(attributes={})
       @ip = attributes[:ip]
       @output = attributes[:output] || 'xml'
-      @url = "http://ipinfodb.com/ip_query.php?ip=#{@ip}&output=#{@output}"
+      @url = "http://ipinfodb.com/ip_query.php?ip=#{URI.escape(@ip)}&output=#{@output}"
       @xml = Nokogiri::XML.parse(open(@url))
     end
 
