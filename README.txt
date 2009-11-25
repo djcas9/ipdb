@@ -16,7 +16,7 @@ ipdb is a simple gem that utilizes the ipinfodb.com api for IP address lookups.
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.4.0
 
 == INSTALL:
 
