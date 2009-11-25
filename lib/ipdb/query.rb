@@ -13,26 +13,25 @@ module Ipdb
     # IP address to lookup
     attr_reader :address
 
-    def initialize(ips=[], attributes={}, &block)
-      @address = attributes[:ip]
-      @output = (attributes[:output] || :xml).to_sym
+    def initialize(options={}, &block)
+      @address = options[:ip]
+      @output = (options[:output] || :xml).to_sym
 
-      if ips
-        
-        @url = "#{SCRIPT}?ip=#{URI.escape(attributes[:ip])}&output=#{@output}"
-        @xml = Nokogiri::XML.parse(open(@url))
-        block.call(self) if block
+      ips = []
       
+      if options[:ips]
+        ips += options[:ips]
+      elsif options[:ip]
+        ipts << options[:ip]
       else
-        
-        ips.each do |ip|
-          @url = "#{SCRIPT}?ip=#{URI.escape(ip)}&output=#{@output}"
-          @xml = Nokogiri::XML.parse(open(@url))
-          block.call(self) if block
-        end
-        
+        raise(RuntimeError,"must specify either the :ips or :ip option",caller)
       end
 
+      ips.each do |ip|
+        @url = "#{SCRIPT}?ip=#{URI.escape(ip)}&output=#{@output}"
+        @xml = Nokogiri::XML.parse(open(@url))
+        block.call(self) if block
+      end
     end
     
     def address
