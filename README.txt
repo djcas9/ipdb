@@ -20,7 +20,7 @@ ipdb is a simple gem that utilizes the ipinfodb.com api for IP address lookups.
 
 == INSTALL:
 
-* sudo gem install ipdb
+  $ sudo gem install ipdb
 
 == LICENSE:
 
