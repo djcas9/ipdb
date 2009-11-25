@@ -16,7 +16,7 @@ require "pp"
         '85.113.252.214', '86.100.64.151', '85.132.201.196', '82.228.53.39', '80.35.156.3', '82.238.32.72', '89.77.158.227', '87.97.237.135', '69.226.246.172']
 
 Ipdb::Query.new(:ip => @ips, :output => :xml, :timeout => 100) do |ip|
-  pp "#{ip.address} (#{ip.country_name} | #{ip.region_name} | #{ip.city})"
+  pp "#{ip.address} (#{ip.country_name} | #{ip.region_name} | #{ip.city} | #{ip.hostname})"
 end
 
 
