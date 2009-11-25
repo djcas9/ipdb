@@ -8,10 +8,10 @@ module Ipdb
   # @example http://ipinfodb.com/ip_query.php?ip=127.0.0.1&output=json
   IPDBURL = 'http://ipinfodb.com/ip_query.php?ip='
 
-  # ip address to lookup
-  attr_reader :ip
-
   class Lookup
+
+    # ip address to lookup
+    attr_reader :ip
 
     def initialize(attributes={})
       @ip = attributes[:ip]
