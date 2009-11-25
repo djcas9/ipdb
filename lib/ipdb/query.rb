@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require "resolv"
 require 'enumerator'
 require 'uri'
 
@@ -18,7 +19,7 @@ module Ipdb
       if options[:ips]
         ips += options[:ips]
       elsif options[:ip]
-        ipts << options[:ip]
+        ips << options[:ip]
       else
         raise(RuntimeError,"must specify either the :ips or :ip option",caller)
       end
@@ -32,6 +33,10 @@ module Ipdb
     
     def address
       @address = @xml.at('/Response/Ip').inner_text
+    end
+    
+    def hostname
+      @hostname = Resolv.getname(address)
     end
     
     def country_code
