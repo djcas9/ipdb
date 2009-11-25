@@ -10,40 +10,41 @@ module Ipdb
 
     # The IPinfoDB url
     # @example http://ipinfodb.com/ip_query.php?ip=127.0.0.1&output=json
-    SCRIPT = 'http://ipinfodb.com/ip_query.php'
+    SCRIPT = 'http://ipinfodb.com/'
 
     def initialize(options={}, &block)
       @output = (options[:output] || :xml).to_sym
+      @timeout = options[:timeout] || 100
 
       ips = []
-      
+
       if options[:ips]
-        ips += options[:ips]
+        @url = "#{SCRIPT}ip_query2.php?ip=#{URI.escape(options[:ips].join(','))}&output=#{@output}"
+      elsif options[:domain]
+        @url = "#{SCRIPT}ip_query2.php?ip=#{URI.escape(options[:domain])}&output=#{@output}"
       elsif options[:ip]
-        ips << options[:ip]
+        @url = "#{SCRIPT}ip_query.php?ip=#{URI.escape(options[:ip])}&output=#{@output}"
       else
         raise(RuntimeError,"must specify either the :ips or :ip option",caller)
       end
 
-      ips.each do |ip|
-        Timeout::timeout(options[:time]) {
-        @url = "#{SCRIPT}?ip=#{URI.escape(ip)}&output=#{@output}"
-        @xml = Nokogiri::XML.parse(open(@url))
-        block.call(self) if block
-      }
-      end
+
+      @xml = Nokogiri::XML.parse(open(@url))
+      @xml.root=
+
+      block.call(self) if block
     end
-    
+
     def address
       @address = @xml.at('/Response/Ip').inner_text
     end
-    
+
     def hostname
       @hostname = Resolv.getname(address)
     rescue
-      
+
     end
-    
+
     def country_code
       @country_code = @xml.at('/Response/CountryCode').inner_text
     end
