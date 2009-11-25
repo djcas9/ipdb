@@ -1,4 +1,3 @@
-require 'nokogiri'
 require 'open-uri'
 require 'enumerator'
 require 'uri'
@@ -17,7 +16,13 @@ module Ipdb
       @ip = attributes[:ip]
       @output = (attributes[:output] || :xml).to_sym
       @url = "#{SCRIPT}?ip=#{URI.escape(@ip)}&output=#{@output}"
-      @xml = Nokogiri::XML.parse(open(@url))
+
+      case @output
+      when :xml
+        require 'nokogiri'
+
+        @xml = Nokogiri::XML.parse(open(@url))
+      end
     end
 
   end
