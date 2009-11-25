@@ -3,6 +3,10 @@
 require 'rubygems'
 require 'hoe'
 
+require './tasks/spec.rb'
+require './tasks/yard.rb'
+require './lib/ipdb/version.rb'
+
 Hoe.spec 'ipdb' do
   self.rubyforge_name = 'ipdb'
   self.developer('Dustin Willis Webber', 'dustin.webber@gmail.com')

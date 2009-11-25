@@ -1,3 +1,2 @@
-class Ipdb
-  VERSION = '1.0.0'
-end
+require 'ipdb/lookup'
+require 'ipdb/version'

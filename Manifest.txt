@@ -5,4 +5,5 @@ README.txt
 Rakefile
 bin/ipdb
 lib/ipdb.rb
+lib/ipdb/version.rb
 test/test_ipdb.rb
