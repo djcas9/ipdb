@@ -5,6 +5,6 @@ require "ipdb"
 require "pp"
 
 
-ip = Ipdb::Lookup.new(:ip => '127.0.0.1')
+ip = Ipdb::Lookup.new(:ip => '173.45.230.150', :output => 'xml')
 
 pp ip
