@@ -4,7 +4,8 @@
 
 == DESCRIPTION:
 
-ipdb is a simple gem that utilizes the ipinfodb.com api for IP address lookups.
+ipdb is a simple gem that utilizes the ipinfodb.com api for IP address
+lookups.
 
 == FEATURES/PROBLEMS:
 
