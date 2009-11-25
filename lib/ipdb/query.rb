@@ -12,6 +12,12 @@ module Ipdb
     # ip address to lookup
     attr_reader :ip
 
+    # output format
+    attr_reader :output
+
+    # URL of the query
+    attr_reader :url
+
     def initialize(attributes={})
       @ip = attributes[:ip]
       @output = (attributes[:output] || :xml).to_sym
