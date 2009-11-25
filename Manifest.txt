@@ -1,0 +1,8 @@
+.autotest
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/ipdb
+lib/ipdb.rb
+test/test_ipdb.rb
