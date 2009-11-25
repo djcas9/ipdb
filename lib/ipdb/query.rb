@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require "resolv"
+require "timeout"
 require 'enumerator'
 require 'uri'
 
@@ -25,9 +26,11 @@ module Ipdb
       end
 
       ips.each do |ip|
+        Timeout::timeout(options[:time]) {
         @url = "#{SCRIPT}?ip=#{URI.escape(ip)}&output=#{@output}"
         @xml = Nokogiri::XML.parse(open(@url))
         block.call(self) if block
+      }
       end
     end
     
@@ -37,6 +40,8 @@ module Ipdb
     
     def hostname
       @hostname = Resolv.getname(address)
+    rescue
+      
     end
     
     def country_code
