@@ -10,11 +10,7 @@ module Ipdb
     # @example http://ipinfodb.com/ip_query.php?ip=127.0.0.1&output=json
     SCRIPT = 'http://ipinfodb.com/ip_query.php'
 
-    # IP address to lookup
-    attr_reader :address
-
     def initialize(options={}, &block)
-      @address = options[:ip]
       @output = (options[:output] || :xml).to_sym
 
       ips = []
