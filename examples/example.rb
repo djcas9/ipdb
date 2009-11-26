@@ -16,7 +16,7 @@ require "ipdb"
 
 #puts Ipdb::Query.new('snorby.org').to_xml
 #puts Ipdb::Query.new('snorby.org').to_json
-puts Ipdb::Query.new('89.77.158.227').parse.timezone
+puts Ipdb::Query.parse('89.77.158.227').timezone
 #puts ip
 # puts ip.address
 # puts ip.country_name
