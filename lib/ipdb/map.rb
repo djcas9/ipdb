@@ -1,10 +1,3 @@
-require 'ipdb/location'
-require 'nokogiri'
-require 'open-uri'
-require 'json/pure'
-require 'enumerator'
-require 'uri'
-
 module Ipdb
 
   class Map
@@ -23,45 +16,35 @@ module Ipdb
       @div_class = div_class || 'ipdb'
     end
     
+    def options
+      "var myOptions = {zoom: #{@zoom},center: p1,mapTypeId: google.maps.MapTypeId.ROADMAP};
+      var map = new google.maps.Map(document.getElementById('#{@div_id}'), myOptions);"
+    end
+    
+    def position
+      "var p1 = new google.maps.LatLng(#{@latitude}, #{@longitude});"
+    end
+    
     def marker
+      "var marker = new google.maps.Marker({position: p1, map: map, title: '#{@address}'});"
     end
     
     def window
+      "var infowindow = new google.maps.InfoWindow({content: 'IP Address: #{@address}<br />#{@city}, #{@country}'});"
+    end
+    
+    def add_window
+      "google.maps.event.addListener(marker, 'click', function() {infowindow.open(map,marker);});"
     end
     
     def render
-      return html = <<-EOF
-      <html>
-      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+      return <<-EOF
+      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
       <script type="text/javascript">
-        function ipdb() {
-          var latlng = new google.maps.LatLng(#{@latitude}, #{@longitude});
-          var myOptions = {
-            zoom: #{@zoom},
-            center: latlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          };
-          var map = new google.maps.Map(document.getElementById("#{@div_id}"), myOptions);
-
-          var infowindow = new google.maps.InfoWindow({
-              content: 'IP Address: #{@address}<br />#{@city}, #{@country}'
-          });
-
-          var marker = new google.maps.Marker({
-              position: latlng, 
-              map: map,
-              title: "#{@address}"
-          });
-          google.maps.event.addListener(marker, 'click', function() {
-            infowindow.open(map,marker);
-          });
-        }
-
+      jQuery(document).ready(function($) {ipdb();function ipdb() {#{position}#{options}#{window}#{marker}#{add_window}}});
       </script>
-      <body onload="ipdb()">
-        <div id="#{@div_id}" class="#{@div_class}" style="width: #{@width}#{@units}; height: #{@height}#{@units}"></div>
-      </body>
-      </html>
+      <div id="#{@div_id}" class="#{@div_class}" style="width: #{@width}#{@units}; height: #{@height}#{@units}"></div>
       EOF
     end
     

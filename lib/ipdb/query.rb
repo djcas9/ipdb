@@ -26,7 +26,7 @@ module Ipdb
         block.call(Location.new(location, @timeout)) if block
       end
     end
-    
+
     def parse
       Location.new(@xml.xpath('//Location'), @timeout)
     end
@@ -34,7 +34,7 @@ module Ipdb
     def url
       @url
     end
-    
+
     def to_json
       json = "#{@url}&output=json"
       @doc = Nokogiri::HTML(open(json))
@@ -47,6 +47,6 @@ module Ipdb
 
     alias to_xml to_s
     alias all to_a
-
+    
   end
 end
