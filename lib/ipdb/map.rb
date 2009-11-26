@@ -9,14 +9,18 @@ module Ipdb
 
   class Map
     
-    def initialize(options={})
-      @address = options[:address]
-      @latitude = options[:latitude]
-      @longitude = options[:longitude]      
-      @units = (options[:units] || :px).to_sym
-      @width = options[:width] || 600
-      @height = options[:height] || 350
-      @zoom = options[:zoom] || 10
+    def initialize(address,city,country,latitude,longitude,width,height,units,zoom,div_id,div_class)
+      @address = address
+      @city = city
+      @country = country
+      @latitude = latitude
+      @longitude = longitude
+      @units = (units || :px).to_sym
+      @width = width || 600
+      @height = height || 350
+      @zoom = zoom || 10
+      @div_id = div_id || 'map_canvas'
+      @div_class = div_class || 'ipdb'
     end
     
     def marker
@@ -30,17 +34,17 @@ module Ipdb
       <html>
       <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
       <script type="text/javascript">
-        function initialize() {
+        function ipdb() {
           var latlng = new google.maps.LatLng(#{@latitude}, #{@longitude});
           var myOptions = {
             zoom: #{@zoom},
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
-          var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+          var map = new google.maps.Map(document.getElementById("#{@div_id}"), myOptions);
 
           var infowindow = new google.maps.InfoWindow({
-              content: 'IP: #{@address}'
+              content: 'IP Address: #{@address}<br />#{@city}, #{@country}'
           });
 
           var marker = new google.maps.Marker({
@@ -54,8 +58,8 @@ module Ipdb
         }
 
       </script>
-      <body onload="initialize()">
-        <div id="map_canvas" style="width: #{@width}#{@units}; height: #{@height}#{@units}"></div>
+      <body onload="ipdb()">
+        <div id="#{@div_id}" class="#{@div_class}" style="width: #{@width}#{@units}; height: #{@height}#{@units}"></div>
       </body>
       </html>
       EOF

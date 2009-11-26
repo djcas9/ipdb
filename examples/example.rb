@@ -23,8 +23,10 @@ require "pp"
 #
 # or even Ipdb::Query.parse('89.77.158.227')
 #
-ip = Ipdb::Query.new('89.77.158.227').parse
-puts ip.graph(:width => 500, :units => :px, :zoom => 100).render
+puts Ipdb::Query.new('89.77.158.227').to_json
+# puts ip.latitude
+# puts ip.longitude
+# puts ip.graph(:height => 350, :width => 600, :units => :px, :div_id => "graph_for_#{ip.address}").render
 
 #puts ip
 # puts ip.address

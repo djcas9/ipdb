@@ -1,7 +1,6 @@
 require 'ipdb/location'
 require 'nokogiri'
 require 'open-uri'
-require 'json/pure'
 require 'enumerator'
 require 'uri'
 
@@ -18,7 +17,7 @@ module Ipdb
       @timeout = options[:timeout] || 10
 
       ip = [addr].flatten
-      @url = "#{SCRIPT}?ip=#{URI.escape(ip.join(','))}&output=#{@output}"
+      @url = "#{SCRIPT}?ip=#{URI.escape(ip.join(','))}"
       @xml = Nokogiri::XML.parse(open(@url))
     end
 
@@ -34,6 +33,12 @@ module Ipdb
 
     def url
       @url
+    end
+    
+    def to_json
+      json = "#{@url}&output=json"
+      @doc = Nokogiri::HTML(open(json))
+      return @doc.xpath('//body/.').inner_text
     end
 
     def to_s
