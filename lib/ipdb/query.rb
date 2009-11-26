@@ -27,7 +27,7 @@ module Ipdb
         block.call(Location.new(location, @timeout)) if block
       end
     end
-
+    
     def parse
       Location.new(@xml.xpath('//Location'), @timeout)
     end
@@ -35,12 +35,13 @@ module Ipdb
     def url
       @url
     end
-    
+
     def to_s
       @xml
     end
 
     alias to_xml to_s
+    alias all to_a
 
   end
 end

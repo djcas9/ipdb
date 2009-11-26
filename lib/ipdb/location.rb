@@ -1,4 +1,5 @@
-require "resolv"
+require 'ipdb/map'
+require 'resolv'
 
 module Ipdb
   class Location
@@ -78,44 +79,9 @@ module Ipdb
       (Time.now + timezone)
     end
 
-    def to_graph(options={})
-      unit = (options[:units] || :px).to_sym
-      width = options[:width] || 600
-      height = options[:height] || 350
-      
-      return html = <<-EOF
-      <html>
-      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-      <script type="text/javascript">
-        function initialize() {
-          var latlng = new google.maps.LatLng(#{latitude}, #{longitude});
-          var myOptions = {
-            zoom: 10,
-            center: latlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          };
-          var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-          var infowindow = new google.maps.InfoWindow({
-              content: 'IP: #{address}'
-          });
-
-          var marker = new google.maps.Marker({
-              position: latlng, 
-              map: map,
-              title: "#{address}"
-          });
-          google.maps.event.addListener(marker, 'click', function() {
-            infowindow.open(map,marker);
-          });
-        }
-
-      </script>
-      <body onload="initialize()">
-        <div id="map_canvas" style="width: #{width}#{unit}; height: #{height}#{unit}"></div>
-      </body>
-      </html>
-      EOF
+    def graph(options={})  
+      return Map.new(:address => address, :latitude => latitude, :longitude => longitude,
+      :width => options[:width], :height => options[:height], :units => options[:units], :zoom => options[:zoom])
     end
     
     def to_s
