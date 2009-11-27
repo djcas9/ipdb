@@ -6,7 +6,7 @@ module Ipdb
 
     attr_reader :location
 
-    def initialize(location, timeout)
+    def initialize(location, timeout=10)
       @xml = location
       @timeout = timeout
     end

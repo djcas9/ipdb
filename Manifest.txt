@@ -3,8 +3,10 @@ History.txt
 Manifest.txt
 README.txt
 Rakefile
-bin/ipdb
 lib/ipdb.rb
 lib/ipdb/query.rb
+lib/ipdb/location.rb
+lib/ipdb/map.rb
 lib/ipdb/version.rb
 test/test_ipdb.rb
+examples/example.rb
