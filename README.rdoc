@@ -4,24 +4,57 @@
 
 == DESCRIPTION:
 
-ipdb is a simple gem that utilizes the ipinfodb.com api for IP address
-lookups.
-
-== FEATURES/PROBLEMS:
-
-* FIX (list of features or problems)
-
-== SYNOPSIS:
-
-  FIX (code sample of usage)
-
-== REQUIREMENTS:
-
-* {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.4.0
+IpDB is a simple ruby interface for ipinfodb IP geographical location api.
 
 == INSTALL:
 
   $ sudo gem install ipdb
+
+== FEATURES/PROBLEMS:
+
+* IP/Domain geographical location
+* Look up multiple addresses at once.
+* Convenience Methods for Google Maps
+* No API usage limit.
+* Timezone data is from Geonames. Please refer to Geonames.org for more info about timezones.
+
+* A max of 25 addresses can be parsed during a single query.
+* There is a one second pause when querying domain names.
+
+== SYNOPSIS:
+
+Using IpDB is super simple. Here are a few example of how one may use this gem.
+
+Look up my current external address:
+
+ ip = Ipdb::Query.new.parse
+ puts ip.address #=> '127.0.0.1'
+ 
+Get The latitude and longitude for a domain:
+  
+  domain = Ipdb::Query.new('snorby.org').parse
+  puts domain.latitude  #=> 38.6446
+  puts domain.longitude #=> -90.2533
+  
+Get the city for an array of IP addresses:
+
+ ips = ['127.0.0.1', 'snorby.org', '64.13.134.52']
+ 
+ Ipdb::Query.new(ips, :timeout => 1).each do |ip|
+  puts ip.hostname
+  puts ip.city
+ end
+ 
+Render a google map from an array of IP addresses:
+
+ map = Ipdb::Map.new(ip_array, :width => 600, :height => 350, :units => :px)
+ map.render
+ 
+Thats It! Below is a screenshot of its output:
+
+== REQUIREMENTS:
+
+* {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.4.0
 
 == LICENSE:
 

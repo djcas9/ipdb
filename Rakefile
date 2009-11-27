@@ -1,26 +1,25 @@
-# -*- ruby -*-
-
 require 'rubygems'
-require 'hoe'
+require 'rake'
 
 require './tasks/spec.rb'
 require './tasks/yard.rb'
-require './lib/ipdb/version.rb'
 
-Hoe.spec 'ipdb' do
-  self.rubyforge_name = 'ipdb'
-  self.developer('Dustin Willis Webber', 'dustin.webber@gmail.com')
-  self.remote_rdoc_dir = 'docs'
-  self.extra_deps = [
-    ['nokogiri', '>=1.2.0']
-  ]
- 
-  self.extra_dev_deps = [
-    ['rspec', '>=1.2.8'],
-    ['yard', '>=0.4.0']
-  ]
- 
-  self.spec_extras = {:has_rdoc => 'yard'}
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "IpDB"
+    gem.summary = "IpDB is a simple IP geographical locator."
+    gem.description = "IpDB is a simple ruby interface for ipinfodb IP geographical location api."
+    gem.email = "dustin.webber@gmail.com"
+    gem.homepage = "http://github.com/mephux/ipdb"
+    gem.authors = ["Dustin Willis Webber"]
+    gem.add_dependency "nokogiri", ">= 1.4.0"
+    gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_development_dependency "yard", ">=0.2.3.5"
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
 
 # vim: syntax=ruby

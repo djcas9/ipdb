@@ -78,7 +78,7 @@ module Ipdb
     end
     
     def to_s
-      "#{address} #{hostname} #{country} #{region} #{city} #{zipcode}"
+      "#{address} #{hostname} #{country} #{region} #{city}"
     end
 
   end
