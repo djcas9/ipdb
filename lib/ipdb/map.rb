@@ -11,16 +11,18 @@ module Ipdb
     #
     # @param [Hash] options The options to create a Map with.
     #
-    # @option opts [Integer] :timeout The Timeout. (Default: 10)
-    # @option opts [String] :units :px, :em, :% (Default: :px)
-    # @option opts [Integer] :width The width of the Map. (Default: 600)
-    # @option opts [Integer] :height The height of the Map. (Default: 350)
-    # @option opts [Integer] :zoom The zoom of the Map. (Default: 10) 
-    # @option opts [String] :div_id The div id of the Map container. (Default: map_canvas) 
-    # @option opts [String] :div_class The div class of the Map container. (Default: ipdb) 
+    # @option options [Integer] :timeout ('10') The Timeout.
+    # @option options [Symbol] :units (':px') The units for width and height.
+    # @option options [Integer] :width ('600') The width of the Map.
+    # @option options [Integer] :height ('350') The height of the Map.
+    # @option options [Integer] :zoom ('10') The zoom of the Map.
+    # @option options [String] :div_id ('map_canvas') The div id of the Map container.
+    # @option options [String] :div_class ('ipdb') The div class of the Map container.
     #
     # @return [MAP] map The newly created Map Object.
     #
+    # @example
+    #   Ipdb::Map.new(@ips, :zoom => 1, :width => 100, :height => 100, :units => :%)
     def initialize(addr=nil, options={})
       @timeout = options[:timeout] || 10
       @units = (options[:units] || :px).to_sym

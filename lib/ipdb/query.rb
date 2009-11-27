@@ -102,11 +102,11 @@ module Ipdb
     #
     def simple_map_url
       @country_codes = []
-      @colors = []
+      @data = []
       Enumerator.new(self,:each).to_a.collect {|x| @country_codes << x.country_code }
       @country_codes = @country_codes.uniq
-      1.upto(@country_codes.size) { |x| @colors << '0' }
-      url = "http://chart.apis.google.com/chart?cht=t&chs=440x220&chd=t:#{@colors.join(',')}&chco=FFFFFF,4A4A4A,EBEBEB&chld=#{@country_codes}&chtm=world&chf=bg,s,EAF7FE"
+      1.upto(@country_codes.size) { |x| @data << '0' }
+      url = "http://chart.apis.google.com/chart?cht=t&chs=440x220&chd=t:#{@data.join(',')}&chco=FFFFFF,4A4A4A,EBEBEB&chld=#{@country_codes}&chtm=world&chf=bg,s,EAF7FE"
       return url
     end
     
