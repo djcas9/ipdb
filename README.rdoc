@@ -1,6 +1,7 @@
 = ipdb
 
-* http://www.github.com/mephux/ipdb
+* Source: http://www.github.com/mephux/ipdb
+* Documentation: http://yardoc.com/docs/mephux-ipdb
 * http://www.packetport.net
 
 == DESCRIPTION:

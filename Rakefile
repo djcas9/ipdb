@@ -7,9 +7,9 @@ require './tasks/yard.rb'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "IpDB"
-    gem.summary = "IpDB is a simple IP geographical locator."
-    gem.description = "IpDB is a ruby interface to the ipinfodb IP geographical locator api."
+    gem.name = "ipdb"
+    gem.summary = "ipdb is a simple IP geographical locator."
+    gem.description = "ipdb is a ruby interface to the ipinfodb IP geographical locator api."
     gem.email = "dustin.webber@gmail.com"
     gem.homepage = "http://github.com/mephux/ipdb"
     gem.authors = ["Dustin Willis Webber"]
