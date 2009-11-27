@@ -10,17 +10,6 @@ IpDB is a simple ruby interface for ipinfodb IP geographical location api.
 
   $ sudo gem install ipdb
 
-== FEATURES/PROBLEMS:
-
-* IP/Domain geographical location
-* Look up multiple addresses at once.
-* Convenience Methods for Google Maps
-* No API usage limit.
-* Timezone data is from Geonames. Please refer to Geonames.org for more info about timezones.
-
-* A max of 25 addresses can be parsed during a single query.
-* There is a one second pause when querying domain names.
-
 == SYNOPSIS:
 
 Using IpDB is super simple. Here are a few example of how one may use this gem.
@@ -51,6 +40,17 @@ Render a google map from an array of IP addresses:
  map.render
  
 Thats It! Below is a screenshot of its output:
+
+== FEATURES/PROBLEMS:
+
+* IP/Domain geographical location
+* Look up multiple addresses at once.
+* Convenience Methods for Google Maps
+* No API usage limit.
+* Timezone data is from Geonames. Please refer to Geonames.org for more info about timezones.
+
+* A max of 25 addresses can be parsed during a single query.
+* There is a one second pause when querying domain names.
 
 == REQUIREMENTS:
 
