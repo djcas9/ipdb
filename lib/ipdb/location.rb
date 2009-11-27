@@ -72,10 +72,6 @@ module Ipdb
     def current_time
       (Time.now + timezone)
     end
-
-    def graph(options={})  
-      Map.new(address,city,country,latitude,longitude,options[:width],options[:height],options[:units],options[:zoom],options[:div_id],options[:div_class])
-    end
     
     def to_s
       "#{address} #{hostname} #{country} #{region} #{city}"
