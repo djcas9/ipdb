@@ -9,7 +9,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "IpDB"
     gem.summary = "IpDB is a simple IP geographical locator."
-    gem.description = "IpDB is a simple ruby interface for ipinfodb IP geographical location api."
+    gem.description = "IpDB is a ruby interface to the ipinfodb IP geographical locator api."
     gem.email = "dustin.webber@gmail.com"
     gem.homepage = "http://github.com/mephux/ipdb"
     gem.authors = ["Dustin Willis Webber"]

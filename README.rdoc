@@ -4,7 +4,7 @@
 
 == DESCRIPTION:
 
-IpDB is a simple ruby interface for ipinfodb IP geographical location api.
+IpDB is a simple ruby interface to the ipinfodb IP geographical locator api.
 
 == INSTALL:
 
