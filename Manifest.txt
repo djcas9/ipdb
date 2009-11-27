@@ -1,12 +1,20 @@
-.autotest
-History.txt
-Manifest.txt
-README.txt
-Rakefile
-lib/ipdb.rb
-lib/ipdb/query.rb
-lib/ipdb/location.rb
-lib/ipdb/map.rb
-lib/ipdb/version.rb
-test/test_ipdb.rb
-examples/example.rb
+|-- History.txt
+|-- Manifest.txt
+|-- README.rdoc
+|-- Rakefile
+|-- VERSION
+|-- lib
+|   |-- ipdb
+|   |   |-- location.rb
+|   |   |-- map.rb
+|   |   `-- query.rb
+|   `-- ipdb.rb
+|-- specs
+|   `-- spec_helper.rb
+|-- tasks
+|   |-- spec.rb
+|   `-- yard.rb
+`-- tmp
+    `-- example.rb
+
+5 directories, 13 files
