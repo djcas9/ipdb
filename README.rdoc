@@ -20,14 +20,13 @@ Look up my current external address:
  ip = Ipdb::Query.new.parse
  
  puts ip.address #=> '127.0.0.1'
- puts ip.city
  
 Get The latitude and longitude for a domain:
   
-  domain = Ipdb::Query.new('173.45.230.150').parse
+  ip = Ipdb::Query.new('173.45.230.150').parse
   
-  puts domain.latitude  #=> 38.6446
-  puts domain.longitude #=> -90.2533
+  puts ip.latitude      #=> 38.6446
+  puts ip.longitude     #=> -90.2533
   puts ip.country       #=> United States
   puts ip.region        #=> Missouri
   puts ip.city          #=> Saint Louis
