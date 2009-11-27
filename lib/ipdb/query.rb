@@ -5,14 +5,26 @@ require 'enumerator'
 require 'uri'
 
 module Ipdb
-
+  
+  #
   # The IPinfoDB url
+  #
   # @example http://ipinfodb.com/ip_query.php?ip=127.0.0.1&output=json
+  #
   SCRIPT = 'http://ipinfodb.com/ip_query2.php'
 
   class Query
     include Enumerable
 
+    #
+    # Creates a new Query object.
+    #
+    # @param [Array] addresses/domians
+    #   An array of addresses or domains.
+    #
+    # @param [Hash<Options>]
+    #   Options for the new Query Object.
+    #
     def initialize(addr=nil, options={})
       @timeout = options[:timeout]
 
@@ -21,26 +33,59 @@ module Ipdb
       @xml = Nokogiri::XML.parse(open(@url))
     end
 
+    #
+    # Process The Query Object And Return A Location Object
+    #
+    # @return [Location]
+    #   The Location object returned from the Query.
+    #
     def parse
       Location.new(@xml.xpath('//Location'), @timeout)
     end
 
+    #
+    # Parses the Locations from the Query.
+    #
+    # @yield [Query]
+    #   Each query will be passed to a given block.
+    #
+    # @yieldparam [Location] location
+    #   A location from the query.
+    #
+    # @return [XML]
+    #   The XML object.
+    #
     def each(&block)
       @xml.xpath('//Location').each do |location|
         block.call(Location.new(location, @timeout)) if block
       end
     end
 
+    #
+    # Return the url of the Query
+    #
+    # @return [String] url
+    #
     def url
       @url
     end
 
+    #
+    # Return the Query object in json format.
+    #
+    # @return [Query] json
+    #
     def to_json
       json = "#{@url}&output=json"
       @doc = Nokogiri::HTML(open(json))
       return @doc.xpath('//body/.').inner_text
     end
 
+    #
+    # Return the Query in XML format.
+    #
+    # @return [Query] xml
+    #
     def to_s
       @xml
     end
@@ -48,6 +93,11 @@ module Ipdb
     alias to_xml to_s
     alias all to_a
     
+    #
+    # Return a map url of addresses from the Query
+    #
+    # @return [String] url
+    #
     def simple_map_url
       @country_codes = []
       @colors = []
@@ -58,6 +108,11 @@ module Ipdb
       return url
     end
     
+    #
+    # Convenient Method to render the map url as an image in Rails.
+    #
+    # @return [String] image
+    #
     def simple_map_image
       "image_path(#{simple_map_url})"
     end
