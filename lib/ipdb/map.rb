@@ -3,6 +3,24 @@ module Ipdb
 
   class Map
 
+    #
+    # Creates a new Map object.
+    #
+    # @param [Array] addresses/domians
+    #   An array of addresses or domains.
+    #
+    # @param [Hash] options The options to create a Map with.
+    #
+    # @option opts [Integer] :timeout The Timeout. (Default: 10)
+    # @option opts [String] :units :px, :em, :% (Default: :px)
+    # @option opts [Integer] :width The width of the Map. (Default: 600)
+    # @option opts [Integer] :height The height of the Map. (Default: 350)
+    # @option opts [Integer] :zoom The zoom of the Map. (Default: 10) 
+    # @option opts [String] :div_id The div id of the Map container. (Default: map_canvas) 
+    # @option opts [String] :div_class The div class of the Map container. (Default: ipdb) 
+    #
+    # @return [MAP] map The newly created Map Object.
+    #
     def initialize(addr=nil, options={})
       @timeout = options[:timeout] || 10
       @units = (options[:units] || :px).to_sym
@@ -17,6 +35,11 @@ module Ipdb
       @xml = Nokogiri::XML.parse(open(@url)).xpath('//Location')
     end
     
+    #
+    # Return a Google Map for a Query Object
+    #
+    # @return [String<HTML, JavaScript>] map The Google Map html and JavaScript.
+    #
     def render
       @map = ""; @id = 0
       @xml.each do |x|
@@ -32,26 +55,72 @@ module Ipdb
     
     private
     
+    #
+    # Build the Google maps options hash.
+    #
+    # @private
+    #
     def build_options(start)
       "var myOptions = {zoom: #{@zoom},center: #{start},mapTypeId: google.maps.MapTypeId.ROADMAP};var map = new google.maps.Map(document.getElementById('#{@div_id}'), myOptions);"
     end
 
+    #
+    # Build a new Google Map Location object.
+    #
+    # @param [Float] latitude The new location objects latitude.
+    # @param [Float] longitude The new location objects longitude.
+    #
+    # @private
+    #
     def new_location(latitude,longitude)
       "new google.maps.LatLng(#{latitude}, #{longitude})"
     end
 
+    #
+    # Build a Google Map marker for the Location.
+    #
+    # @param [String] id The Location id.
+    # @param [String] address The Location address.
+    # @param [Float] latitude The new location objects latitude.
+    # @param [Float] longitude The new location objects longitude.
+    #
+    # @private
+    #
     def add_marker(id,address,latitude,longitude)
       "var marker_#{id} = new google.maps.Marker({position: new google.maps.LatLng(#{latitude}, #{longitude}), map: map, title: '#{address}'});"
     end
-
+    
+    #
+    # Build a Google Map Window for the Location.
+    #
+    # @param [String] id The Location id.
+    # @param [String] address The Location address.
+    # @param [String] city The location city.
+    # @param [String] country The location country.
+    #
+    # @private
+    #
     def add_window(id, address, city, country)
       "var infowindow_#{id} = new google.maps.InfoWindow({content: 'IP Address: #{address}<br />#{city}, #{country}'});"
     end
 
+    #
+    # Build a Google map Listener to watch for marker clicks.
+    #
+    # @param [String] id The Location id.
+    #
     def add_listener(id)
       "google.maps.event.addListener(marker_#{id}, 'click', function() {infowindow_#{id}.open(map,marker_#{id});});"
     end
 
+    #
+    # Build The Google Map.
+    #
+    # @param [String] start A Google Map Location object to use as a starting point.
+    # @param [String] data The Google Map js built from the Location object.
+    #
+    # @private
+    #
     def build_map(start, data)
       return <<-EOF
 <script type="text/javascript" src="http://www.google.com/jsapi?autoload=%7Bmodules%3A%5B%7Bname%3A%22maps%22%2Cversion%3A3%2Cother_params%3A%22sensor%3Dfalse%22%7D%5D%7D"></script>

@@ -105,6 +105,8 @@ module Ipdb
     #
     # @return [Integer] zip_code
     #
+    # @see Location#zipcode
+    #
     def zip_code
       @zip_code = @xml.at('ZipPostalCode').inner_text.to_i
     end
@@ -134,8 +136,7 @@ module Ipdb
     # @return [Integer] time_zone
     #
     # @see http://www.geonames.org/
-    #
-    # @alias timezone
+    # @see Location#timezone
     #
     def time_zone
       @timezone = @xml.at('Timezone').inner_text.to_i

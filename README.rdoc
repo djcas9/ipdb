@@ -62,7 +62,7 @@ http://snorby.org/images/ipdb.png
 
 == REQUIREMENTS:
 
-* {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.4.0
+* nokogiri http://nokogiri.rubyforge.org >= 1.4.0
 
 == LICENSE:
 

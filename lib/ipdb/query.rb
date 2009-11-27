@@ -25,6 +25,8 @@ module Ipdb
     # @param [Hash<Options>]
     #   Options for the new Query Object.
     #
+    # @option opts [Integer] :timeout The Timeout. (Default: 10)
+    #
     def initialize(addr=nil, options={})
       @timeout = options[:timeout]
 
