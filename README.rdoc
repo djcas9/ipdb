@@ -17,15 +17,21 @@ Using IpDB is super simple. Here are a few example of how one may use this gem.
 Look up my current external address:
 
  ip = Ipdb::Query.new.parse
+ 
  puts ip.address #=> '127.0.0.1'
+ puts ip.city
  
 Get The latitude and longitude for a domain:
   
   domain = Ipdb::Query.new('snorby.org').parse
+  
   puts domain.latitude  #=> 38.6446
   puts domain.longitude #=> -90.2533
+  puts ip.country       #=> United States
+  puts ip.region        #=> Missouri
+  puts ip.city          #=> Saint Louis
   
-Get the city for an array of IP addresses:
+Return the hostname & city for each address and/or domain in an array.
 
  ips = ['127.0.0.1', 'snorby.org', '64.13.134.52']
  
