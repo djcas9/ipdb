@@ -23,12 +23,11 @@ require "pp"
 # puts ip.hostname
 # puts ip.latitude
 # puts ip.longitude
-# puts ip.graph(:height => 350, :width => 600, :units => :px, :div_id => "graph_for_#{ip.address}").render
 
+puts Ipdb::Query.new(@ips, :zoom => 1).simple_map_url
 
-
-graph = Ipdb::Map.new(@ips, :zoom => 1)
-
-puts graph.render
+# graph = Ipdb::Map.new(@ips, :zoom => 1)
+# 
+# puts graph.render
 
 
