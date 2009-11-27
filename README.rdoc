@@ -23,7 +23,7 @@ Look up my current external address:
  
 Get The latitude and longitude for a domain:
   
-  domain = Ipdb::Query.new('snorby.org').parse
+  domain = Ipdb::Query.new('173.45.230.150').parse
   
   puts domain.latitude  #=> 38.6446
   puts domain.longitude #=> -90.2533
