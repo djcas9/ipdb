@@ -48,6 +48,7 @@ Render a google map from an array of IP addresses:
 Thats It! Below is a screenshot of its output:
 
 http://snorby.org/images/ipdb.png
+http://snorby.org/images/ipdb2.png
 
 == FEATURES/PROBLEMS:
 
