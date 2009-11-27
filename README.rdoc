@@ -22,7 +22,7 @@ Look up my current external address:
  
  puts ip.address #=> '127.0.0.1'
  
-Get The latitude and longitude for a domain:
+Get geographical information for a given address:
   
   ip = Ipdb::Query.new('173.45.230.150').parse
   
