@@ -75,7 +75,7 @@ module Ipdb
     end
     
     def render_div
-      '<div id="#{@div_id}" class="#{@div_class}" style="width: #{@width}#{@units}; height: #{@height}#{@units}"></div>'
+      "<div id='#{@div_id}' class='#{@div_class}' style='width: #{@width}#{@units}; height: #{@height}#{@units}'></div>"
     end
     
     private
