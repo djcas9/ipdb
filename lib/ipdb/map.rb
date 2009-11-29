@@ -40,9 +40,11 @@ module Ipdb
     #
     # Return a Google Map for a Query Object
     #
+    # @params [Boolean] js ('true') Exclude js with map if false.
+    #
     # @return [String<HTML, JavaScript>] map The Google Map html and JavaScript.
     #
-    def render
+    def render(js=true)
       @map = ""; @id = 0
       @xml.each do |x|
         location = Location.new(x, @timeout)
@@ -52,7 +54,28 @@ module Ipdb
         @map += add_window(id, location.address, location.city, location.country)
         @map += add_listener(id)
       end
-      build_map(@start, @map)
+      if js
+        build_map(@start, @map)
+      else
+        build_map_without_js(@start, @map)
+      end
+    end
+    
+    def render_js
+      @map = ""; @id = 0
+      @xml.each do |x|
+        location = Location.new(x, @timeout)
+        id = "ip_#{@id += 1}_id"
+        @start = new_location(location.latitude, location.longitude) if @id == 1
+        @map += add_marker(id, location.address, location.latitude, location.longitude)
+        @map += add_window(id, location.address, location.city, location.country)
+        @map += add_listener(id)
+      end
+      build_map_just_js(@start, @map)
+    end
+    
+    def render_div
+      '<div id="#{@div_id}" class="#{@div_class}" style="width: #{@width}#{@units}; height: #{@height}#{@units}"></div>'
     end
     
     private
@@ -128,6 +151,19 @@ module Ipdb
 <script type="text/javascript" src="http://www.google.com/jsapi?autoload=%7Bmodules%3A%5B%7Bname%3A%22maps%22%2Cversion%3A3%2Cother_params%3A%22sensor%3Dfalse%22%7D%5D%7D"></script>
 <script type="text/javascript">function ipdb() {#{build_options(start)}#{data}};google.setOnLoadCallback(ipdb);</script>
 <div id="#{@div_id}" class="#{@div_class}" style="width: #{@width}#{@units}; height: #{@height}#{@units}"></div>
+      EOF
+    end
+    
+    def build_map_without_js(start, data)
+      return <<-EOF
+<script type="text/javascript">function ipdb() {#{build_options(start)}#{data}};google.setOnLoadCallback(ipdb);</script>
+<div id="#{@div_id}" class="#{@div_class}" style="width: #{@width}#{@units}; height: #{@height}#{@units}"></div>
+      EOF
+    end
+    
+    def build_map_just_js(start, data)
+      return <<-EOF
+<script type="text/javascript">function ipdb() {#{build_options(start)}#{data}};google.setOnLoadCallback(ipdb);</script>
       EOF
     end
 
