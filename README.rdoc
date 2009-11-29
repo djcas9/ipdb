@@ -43,8 +43,17 @@ Return the hostname & city for each address and/or domain in an array.
  
 Render a google map from an array of IP addresses:
 
- map = Ipdb::Map.new(ip_array, :width => 600, :height => 350, :units => :px)
- map.render
+ @map = Ipdb::Map.new(ip_array, :width => 600, :height => 350, :units => :px).render
+ 
+Or if you're using Rails:
+
+Controller:
+
+ @map = Ipdb::Map.new(ip_array, :width => 600, :height => 350, :units => :px)
+ 
+View:
+
+ <%= @map.render %>
  
 Thats It! Below is a screenshot of its output:
 
